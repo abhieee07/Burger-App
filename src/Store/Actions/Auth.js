@@ -48,7 +48,7 @@ export const auth = (email, password, isSignup) => {
         }
         axios.post(url, authData)
             .then(response => {
-                // console.log(response)    
+                // console.log(response)
                 const expryDate = new Date(new Date().getTime() + response.data.expiresIn * 1000)   //calculationg time,in short future exact time
                 localStorage.setItem('token', response.data.idToken); // clicking on refresh,you get automatically loggeg out,hence creating a local strage here
                 localStorage.setItem("expirationDate", expryDate)   // storing expiration time in local storage too
@@ -57,7 +57,7 @@ export const auth = (email, password, isSignup) => {
                 dispatch(checkAuthTimeout(response.data.expiresIn))
             })
             .catch(err => {
-                // console.log(err)
+                console.log(err)
                 dispatch(authFail(err));
             })
     }

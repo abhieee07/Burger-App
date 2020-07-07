@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './NavigationItems.module.css';
 import NavigationItem from './NavigationItem/NavigationItem';
+import { connect } from 'react-redux'
 
 const navigationItems = (props) => (
 	<ul className={classes.NavigationItems}>
@@ -11,8 +12,14 @@ const navigationItems = (props) => (
 		{!props.isAuth ? (
 			<NavigationItem link='/signin'>Sign In</NavigationItem>
 		) : (
-			<NavigationItem link='/logout'>Logout</NavigationItem>
-		)}
+				<NavigationItem link='/logout'>Logout</NavigationItem>
+			)}
 	</ul>
 );
-export default navigationItems;
+const mapStateToProps = (state) => {
+	return {
+		isAuth: state.auth.token !== null,
+	}
+}
+
+export default connect(mapStateToProps)(navigationItems);
